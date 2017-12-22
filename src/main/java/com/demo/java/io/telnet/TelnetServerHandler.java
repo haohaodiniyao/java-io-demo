@@ -7,21 +7,24 @@ import io.netty.channel.SimpleChannelInboundHandler;
 
 import java.net.InetAddress;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Handles a server-side channel.
  */
 @Sharable
 public class TelnetServerHandler extends SimpleChannelInboundHandler<String> {
-
+    //当客户端和服务端建立tcp成功之后，Netty的NIO线程会调用channelActive
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         // Send greeting for a new connection.
+    	//.write写到缓冲区
+    	//.flush发送
         ctx.write("Welcome to " + InetAddress.getLocalHost().getHostName() + "!\r\n");
         ctx.write("It is " + new Date() + " now.\r\n");
         ctx.flush();
     }
-
+    //服务端应答时，channelRead0方法被调用
     @Override
     public void channelRead0(ChannelHandlerContext ctx, String request) throws Exception {
         // Generate and write a response.
@@ -33,6 +36,7 @@ public class TelnetServerHandler extends SimpleChannelInboundHandler<String> {
             response = "Have a good day!\r\n";
             close = true;
         } else {
+        	TimeUnit.MINUTES.sleep(2);
             response = "Did you say '" + request + "'?\r\n";
         }
 
@@ -49,6 +53,7 @@ public class TelnetServerHandler extends SimpleChannelInboundHandler<String> {
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
+    	System.out.println("channelReadComplete...");
         ctx.flush();
     }
 

@@ -1,4 +1,6 @@
 package com.demo.java.io.telnet;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -34,7 +36,10 @@ public class TelnetServerInitializer extends ChannelInitializer<SocketChannel> {
             }
 
             // Add the text line codec combination first,
-            pipeline.addLast(new DelimiterBasedFrameDecoder(10, Delimiters.lineDelimiter()));
+            //自定义分隔符
+            ByteBuf delimiter = Unpooled.copiedBuffer("_#_".getBytes());
+            pipeline.addLast(new DelimiterBasedFrameDecoder(10, delimiter));
+//            pipeline.addLast(new DelimiterBasedFrameDecoder(10, Delimiters.lineDelimiter()));
             // the encoder and decoder are static as these are sharable
             //编码和解码
             pipeline.addLast(DECODER);

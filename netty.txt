@@ -1,1 +1,4 @@
-###netty
+###netty IO NIO
+http://blog.csdn.net/langzi7758521/article/details/52712159
+Netty之ChannelOption详解
+https://www.cnblogs.com/googlemeoften/p/6082785.html

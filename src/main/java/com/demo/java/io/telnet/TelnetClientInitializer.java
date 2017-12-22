@@ -33,6 +33,7 @@ public class TelnetClientInitializer extends ChannelInitializer<SocketChannel> {
         }
 
         // Add the text line codec combination first,
+        //分隔符解码(第一个参数,单个消息最大长度;第二个参数,消息分割符)
         pipeline.addLast(new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
         pipeline.addLast(DECODER);
         pipeline.addLast(ENCODER);

@@ -1,4 +1,6 @@
 ###netty IO NIO
 http://blog.csdn.net/langzi7758521/article/details/52712159
+http://www.infoq.com/cn/articles/netty-million-level-push-service-design-points/
+http://blog.csdn.net/baiye_xing/article/details/76735113
 Netty之ChannelOption详解
 https://www.cnblogs.com/googlemeoften/p/6082785.html
